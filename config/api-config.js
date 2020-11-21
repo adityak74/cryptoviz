@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // index route
 app.get('/', (req, res) => {
-  res.send('hello world');
+  res.send('WazirX Visualizer V0.1');
 });
 
 app.post('/startCoinsSeeder', (req, res) => {
@@ -43,8 +43,6 @@ app.post('/stopCoinsSeeder', (req, res) => {
   });
 });
 
-var ApiConfig = {
+module.exports = {
   app: app
 };
-
-module.exports = ApiConfig;
