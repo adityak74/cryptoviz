@@ -1,5 +1,4 @@
 const request = require('superagent');
-const async = require('async');
 
 const WAZIRX_BASE_ENDPOINT = 'https://api.wazirx.com';
 const WAZIRX_PREFIX_ROUTE = '/api/v2';
@@ -21,24 +20,18 @@ const createAsyncRequest = (
   const argsTypeFunc = type === 'get' ? 'query' : 'send';
   request[type](WAZIRX_BASE_URL + WAZIRX_API[api])
   [argsTypeFunc](args)
+  .timeout(60000)
   .end(callback);
 };
 
 const marketStatusAsync = cb => createAsyncRequest('MARKET_STATUS', 'get', {}, cb);
 const marketTickerAsync = cb => createAsyncRequest('MARKET_TICKER', 'get', {}, cb);
 const marketDepthAsync = args => cb => createAsyncRequest('MARKET_DEPTH', 'get', args, cb);
-const marketTradeAsync = cb => createAsyncRequest('MARKET_TRADE', 'get', {}, cb);
+const marketTradeAsync = args => cb => createAsyncRequest('MARKET_TRADE', 'get', args, cb);
 
-async.parallel([
+module.exports = {
   marketStatusAsync,
   marketTickerAsync,
-], function(err, results) {
-  // optional callback
-  if (err) console.log('err', err);
-  const coins = results[1].body;
-  const marketDepthCoins = Object.keys(coins);
-  const marketDepthForCoinsAsync = marketDepthCoins.map(coin => marketDepthAsync({ market: coin }));
-  async.parallel(marketDepthForCoinsAsync, (error, depthResults) => {
-    // parse the response here
-  });
-});
+  marketDepthAsync,
+  marketTradeAsync,
+};
