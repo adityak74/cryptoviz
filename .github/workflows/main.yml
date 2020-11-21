@@ -21,8 +21,6 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
-  GCE_INSTANCE: my-githubactions-vm  # TODO: update to instance name
-  GCE_INSTANCE_ZONE: us-central1-a   # TODO: update to instance zone
 
 jobs:
   setup-build-publish-deploy:
@@ -55,8 +53,9 @@ jobs:
       run: |-
         docker push "gcr.io/aakashgangaaspace/instance-ak-image:latest"
 
-    - name: Deploy
-      run: |-
-        gcloud compute instances update-container "instance-ak" \
-          --zone "us-central1-a" \
-          --container-image "gcr.io/aakashgangaaspace/instance-ak-image:latest"
+    - name: Deploy to Cloud Run
+      uses: google-github-actions/deploy-cloudrun@main
+      with:
+        image: gcr.io/aakashgangaaspace/instance-ak-image:latest
+        service: instance-ak-image
+        credentials: ${{ secrets.GCE_SA_KEY }}
