@@ -4,6 +4,8 @@ var path  = require('path');
 var bodyParser = require('body-parser');
 const forever = require('forever');
 
+const packageJSON = require('../package.json');
+
 const runnerPath = path.join(__dirname, '..', 'utils', 'runners', 'coinsData-runner.js');
  
  app.use(function(req, res, next) {
@@ -20,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // index route
 app.get('/', (req, res) => {
-  res.send('WazirX Visualizer V0.1');
+  res.send(`WazirX Visualizer v${packageJSON.version}`);
 });
 
 app.post('/startCoinsSeeder', (req, res) => {
