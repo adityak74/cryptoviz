@@ -47,10 +47,6 @@ jobs:
     - name: Copy SQL Credentials
       run: |-
         echo $DB_CONNECTON_JSON > ./config/config.json
-        
-    - name: Print SQL
-      run: |-
-        cat ./config/config.json
 
     # Build the Docker image
     - name: Build
