@@ -20,35 +20,36 @@ const asyncInsertWazirxCoinsData = coinsData => cb => {
     .catch(error => cb(error));
 };
 
-return parallel([
-  marketTickerAsync,
-  asyncSelectAllWazirxCoins,
-], async function(err, results) {
-  if (err) {
-    console.log('err', err);
-    return;
-  }
-  const { insert } = sql;
-  const { insertCoinsData } = insert;
-  const rawCoinsData = results[0].body;
-  const allWazirxCoins = results[1];
-  const coins = Object.keys(rawCoinsData);
-  const wazirxCoinsData = [];
-  coins.forEach(coin => {
-    const coinData = rawCoinsData[coin];
-    const coinID = allWazirxCoins.find((wazirxCoins) => wazirxCoins.dataValues.name === coinData.name).dataValues.id;
-    wazirxCoinsData.push({
-      ...coinData,
-      coinID,
-    });
-  });
-  const insertAsyncTasks = wazirxCoinsData.map(coinData => asyncInsertWazirxCoinsData(coinData));
-  return parallel(insertAsyncTasks, (insertErr, insertResults) => {
-    if (insertErr) {
-      console.log('Error: Updating database', insertErr);
-      return;
-    } else {
-      console.log('Info: Coins Data Inserted');
+const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
+    marketTickerAsync,
+    asyncSelectAllWazirxCoins,
+  ], async function(err, results) {
+    if (err) {
+      console.log('err', err);
+      reject(err);
     }
-  });
-});
+    const rawCoinsData = results[0].body;
+    const allWazirxCoins = results[1];
+    const coins = Object.keys(rawCoinsData);
+    const wazirxCoinsData = [];
+    coins.forEach(coin => {
+      const coinData = rawCoinsData[coin];
+      const coinID = allWazirxCoins.find((wazirxCoins) => wazirxCoins.dataValues.name === coinData.name).dataValues.id;
+      wazirxCoinsData.push({
+        ...coinData,
+        coinID,
+      });
+    });
+    const insertAsyncTasks = wazirxCoinsData.map(coinData => asyncInsertWazirxCoinsData(coinData));
+    return parallel(insertAsyncTasks, (insertErr, insertResults) => {
+      if (insertErr) {
+        console.log('Error: Updating database', insertErr);
+        reject(insertErr);
+      } else {
+        console.log('Info: Coins Data Inserted');
+        resolve();
+      }
+    });
+  }));
+
+module.exports = coinsDataSeeder;

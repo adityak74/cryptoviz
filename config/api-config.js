@@ -3,10 +3,9 @@ var app = express();
 var path  = require('path');
 var bodyParser = require('body-parser');
 const forever = require('forever');
+const coinsDataSeeder = require('../services/coinsData-seeder');
 
 const packageJSON = require('../package.json');
-
-const runnerPath = path.join(__dirname, '..', 'utils', 'runners', 'coinsData-runner.js');
  
  app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -26,20 +25,21 @@ app.get('/', (req, res) => {
 });
 
 app.post('/startCoinsSeeder', (req, res) => {
-  const runnerProcess = forever.startDaemon(runnerPath, {
-    env: { 'NODE_ENV': 'staging' },
-    max : 1,
-    silent : false
-  });
-  runnerProcess.on('error', (error) => console.error('Process failed', error));
-  return res.send({
-    seeder: 'started',
-    success: true,
+  coinsDataSeeder().then(() => {
+    return res.send({
+      seeder: 'started',
+      success: true,
+    });
+  }).catch((error) => {
+    return res.send({
+      seeder: 'failed',
+      error,
+      success: false,
+    });
   });
 });
 
 app.post('/stopCoinsSeeder', (req, res) => {
-  forever.stopAll();
   return res.send({
     seeder: 'stopped',
     success: true,
