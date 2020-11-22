@@ -61,6 +61,6 @@ jobs:
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@main
       with:
-        image: gcr.io/aakashgangaaspace/instance-ak-image:latest
+        image: gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}
         service: instance-ak-image
         credentials: ${{ secrets.GCE_SA_KEY }}
