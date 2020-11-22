@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "johndoe",
+    "password": "password",
+    "database": "test",
+    "host": "localhost",
+    "port": 3307,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "test",
+    "password": "password",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "johndoe",
+    "password": "password",
+    "database": "prod",
+    "host": "123.456.123.456",
+    "port": 3306,
+    "dialect": "mysql"
+  }
+}
