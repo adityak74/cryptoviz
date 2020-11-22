@@ -2,7 +2,6 @@ var express = require("express");
 var app = express();
 var path  = require('path');
 var bodyParser = require('body-parser');
-const forever = require('forever');
 const coinsDataSeeder = require('../services/coinsData-seeder');
 
 const packageJSON = require('../package.json');
@@ -24,7 +23,7 @@ app.get('/', (req, res) => {
   res.send(`WazirX Visualizer v${packageJSON.version}`);
 });
 
-app.post('/startCoinsSeeder', (req, res) => {
+app.post('/seedCoinsData', (req, res) => {
   coinsDataSeeder().then((coinsDataPayload) => {
     return res.send({
       seeder: 'complete',
@@ -37,13 +36,6 @@ app.post('/startCoinsSeeder', (req, res) => {
       error,
       success: false,
     });
-  });
-});
-
-app.post('/stopCoinsSeeder', (req, res) => {
-  return res.send({
-    seeder: 'stopped',
-    success: true,
   });
 });
 
