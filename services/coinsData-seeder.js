@@ -26,7 +26,7 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
   ], async function(err, results) {
     if (err) {
       console.log('err', err);
-      reject(err);
+      return reject(err);
     }
     const rawCoinsData = results[0].body;
     const allWazirxCoins = results[1];
@@ -44,10 +44,10 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
     return parallel(insertAsyncTasks, (insertErr, insertResults) => {
       if (insertErr) {
         console.log('Error: Updating database', insertErr);
-        reject(insertErr);
+        return reject(insertErr);
       } else {
         console.log('Info: Coins Data Inserted');
-        resolve({ coins: wazirxCoinsData });
+        return resolve({ coins: wazirxCoinsData });
       }
     });
   }));
