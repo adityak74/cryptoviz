@@ -66,3 +66,4 @@ Example response object for request (JSON object) -
 
 * To scrape the WazirX API Endpoint for Ticker, Market Data
 * Store/Collect the data in the database
+* GCP Cloud Run Deployed

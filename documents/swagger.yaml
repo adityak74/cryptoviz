@@ -1,0 +1,90 @@
+swagger: "2.0"
+info:
+  description: "A simple Wazirx coins ticker data collector and visualizer. Will be used as a dataset for the Crypto Prediction Project."
+  version: "0.0.4"
+  title: "Wazirx Visualizer"
+  contact:
+    email: "akarnam37@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "wazirx-api.adityakarnam.me"
+basePath: "/"
+tags:
+- name: "Coins Seeder"
+  description: "Seeds coins from API to the database"
+schemes:
+- "https"
+paths:
+  /seedCoinsData:
+    post:
+      tags:
+      - "Seed Coins Data"
+      summary: "Adds coins data to database"
+      operationId: "seedCoinsData"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Coins"
+definitions:
+  Coins:
+    type: "object"
+    properties:
+      seeder:
+        type: "string"
+        default: "complete"
+      success:
+        type: "boolean"
+        default: "true"
+      coinsDataPayload:
+        type: "object"
+        properties:
+          coins:
+            type: "array"
+            items:
+              $ref: "#/definitions/Coin"
+  Coin:
+    type: "object"
+    properties:
+      base_unit:
+        type: "string"
+        default: "btc"
+      quote_unit:
+        type: "string"
+        default: "inr"
+      low:
+        type: "number"
+        format: "double"
+      high:
+        type: "number"
+        format: "float"
+      last:
+        type: "number"
+        format: "float"
+      type:
+        type: "string"
+        default: "SPOT"
+      open:
+        type: "integer"
+        format: "int64"
+      volume:
+        type: "number"
+        format: "float"
+      sell:
+        type: "number"
+        format: "float"
+      buy:
+        type: "number"
+        format: "float"
+      at:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        default: "BTC/INR"
+      coinID:
+        type: "string"
+        format: "uuid"
