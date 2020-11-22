@@ -26,11 +26,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/startCoinsSeeder', (req, res) => {
-  forever.startDaemon(runnerPath, {
+  const runnerProcess = forever.startDaemon(runnerPath, {
     env: { 'NODE_ENV': 'staging' },
     max : 1,
     silent : false
   });
+  runnerProcess.on('error', (error) => console.error('Process failed', error));
   return res.send({
     seeder: 'started',
     success: true,
