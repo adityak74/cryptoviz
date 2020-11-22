@@ -21,6 +21,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
+  DB_CONNECTON_JSON: ${{ secrets.DB_CONNECTION_SECRETS }}
 
 jobs:
   setup-build-publish-deploy:
@@ -42,6 +43,10 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
+        
+    - name: Copy SQL Credentials
+      run: |-
+        echo $DB_CONNECTON_JSON > ./config/config.json
 
     # Build the Docker image
     - name: Build
