@@ -25,10 +25,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/startCoinsSeeder', (req, res) => {
-  coinsDataSeeder().then(() => {
+  coinsDataSeeder().then((coinsDataPayload) => {
     return res.send({
-      seeder: 'started',
+      seeder: 'complete',
       success: true,
+      coinsDataPayload,
     });
   }).catch((error) => {
     return res.send({

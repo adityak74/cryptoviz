@@ -47,7 +47,7 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
         reject(insertErr);
       } else {
         console.log('Info: Coins Data Inserted');
-        resolve();
+        resolve({ coins: wazirxCoinsData });
       }
     });
   }));
