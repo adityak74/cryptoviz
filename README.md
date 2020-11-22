@@ -1,4 +1,4 @@
-# WazirX Visualizer ![](https://github.com/adityak74/wazirx-visualizer/workflows/.github/workflows/main.yml/badge.svg)
+# WazirX Visualizer ![Badge](https://github.com/adityak74/wazirx-visualizer/workflows/.github/workflows/main.yml/badge.svg)
 
 A simple wazirx coins ticker data collector and visualizer. Will be used as a dataset for the Crypto Prediction Project ([ChainML](https://github.com/adityak74/chainML) ).
 
