@@ -29,7 +29,7 @@ app.post('/startCoinsSeeder', (req, res) => {
   forever.startDaemon(runnerPath, {
     env: { 'NODE_ENV': 'staging' },
     max : 1,
-    silent : true
+    silent : false
   });
   return res.send({
     seeder: 'started',
