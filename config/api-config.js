@@ -8,7 +8,9 @@ const moment = require('moment');
 const coinsDataSeeder = require('../services/coinsData-seeder');
 const { sql } = require('../utils');
 
-dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
+if (!process.env.GCP_PROJECT) {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
+}
 
 const {
   TWILIO_ACCOUNT_SID,
