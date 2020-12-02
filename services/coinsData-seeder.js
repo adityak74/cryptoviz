@@ -28,13 +28,21 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
       console.log('err', err);
       return reject(err);
     }
+    const { insert } = sql;
+    const { insertWazirXCoin } = insert;
     const rawCoinsData = results[0].body;
     const allWazirxCoins = results[1];
     const coins = Object.keys(rawCoinsData);
     const wazirxCoinsData = [];
-    coins.forEach(coin => {
+    coins.forEach(async coin => {
       const coinData = rawCoinsData[coin];
-      const coinID = allWazirxCoins.find((wazirxCoins) => wazirxCoins.dataValues.name === coinData.name).dataValues.id;
+      const coinForID = allWazirxCoins.find((wazirxCoins) => wazirxCoins.dataValues.name === coinData.name);
+      let coinID;
+      // if not found here then we will need to insert this new coin and get the ID
+      // and then proceed with inserting the data
+      if (!coinForID) {
+        coinID = await insertWazirXCoin(coinData);
+      } else coinID = coinForID.dataValues.id;
       wazirxCoinsData.push({
         ...coinData,
         coinID,

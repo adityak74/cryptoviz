@@ -2,7 +2,8 @@ const db = require('../models');
 
 const insertWazirXCoin = async (wazixCoin) => {
   const { name, quote_unit, base_unit } = wazixCoin;
-  await db.WazirXCoins.create({ name, unit: quote_unit, base_unit });
+  const insertedWazirXCoin = await db.WazirXCoins.create({ name, unit: quote_unit, base_unit });
+  return insertedWazirXCoin.dataValues.id;
 };
 
 const insertCoinsData = async (coinsData) => {
