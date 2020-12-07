@@ -50,15 +50,55 @@ node services/coins-seeder.js
 
 # API Usage 
 
-1. Coins Seeder Route route - `http://localhost:8080/seedCoinsData`
+1. Coins Seeder Route route - `POST` - `http://localhost:8080/seedCoinsData`
      * Seeds the coins from WazirX API to the database
 
 Example response object for request (JSON object) -
 
 ```
 {
-    "username":"test",
-    "password":"testpass"
+    "seeder": "complete",
+    "success": true,
+    "coinsDataPayload": {
+        "coins": [
+            {
+                "base_unit": "btc",
+                "quote_unit": "inr",
+                "low": "1489000.0",
+                "high": "1505595.0",
+                "last": "1498499.0",
+                "type": "SPOT",
+                "open": 1490899,
+                "volume": "68.8624",
+                "sell": "1498499.0",
+                "buy": "1495715.0",
+                "at": 1607354577,
+                "name": "BTC/INR",
+                "coinID": "76854fe4-8a6a-404f-b098-e9631da87fd7"
+            },
+            ...
+        ]
+    }
+}
+```
+2. Get all Coins -  `GET` - `http://localhost:8080/coins`
+     * Gets all the coins available in the database
+
+Example response object for request (JSON object) -
+
+```
+{
+    success: true,
+    coinsData: [
+        {
+            id: "0007b615-16ca-4743-9486-e2c051221bf7",
+            name: "BZRX/USDT",
+            unit: "usdt",
+            base_unit: "bzrx",
+            createdAt: "2020-11-21T03:42:54.000Z",
+            updatedAt: "2020-11-21T03:42:54.000Z"
+        },
+    ]
 }
 ```
 
@@ -67,3 +107,4 @@ Example response object for request (JSON object) -
 * To scrape the WazirX API Endpoint for Ticker, Market Data
 * Store/Collect the data in the database
 * GCP Cloud Run Deployed
+* Sequelize Cacher for SQL Request caching/serving
