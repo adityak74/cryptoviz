@@ -19,8 +19,6 @@ const {
   WHATSAPP_TO,
 } = process.env;
 const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
-
-const packageJSON = require('../package.json');
  
  app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
