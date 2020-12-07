@@ -9,7 +9,7 @@ const coinsDataSeeder = require('../services/coinsData-seeder');
 const { sql } = require('../utils');
 
 if (!process.env.GCP_PROJECT) {
-  dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
+  dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV || 'development'}`) });
 }
 
 const {
@@ -53,6 +53,23 @@ app.post('/seedCoinsData', (req, res) => {
       success: false,
     });
   });
+});
+
+app.get('/coins', async (req, res) => {
+  const { select } = sql;
+  const { selectAllWazirXCoins } = select;
+  try {
+    const coinsData = await selectAllWazirXCoins();
+    res.send({
+      success: true,
+      coinsData,
+    });
+  } catch (error) {
+    return res.send({
+      error,
+      success: false,
+    });
+  }
 });
 
 const formattedCoinsDataMessage = (coin, coinData) => 
