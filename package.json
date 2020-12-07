@@ -1,6 +1,6 @@
 {
   "name": "wazirx-visualizer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "wazirx-visualizer",
   "main": "app.js",
   "scripts": {
