@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // index route
 app.get('/', (req, res) => {
-  res.send(`WazirX Visualizer v${packageJSON.version}`);
+  res.sendFile(path.join(__dirname, '..', 'documents', 'index.html'));
 });
 
 app.post('/seedCoinsData', (req, res) => {
