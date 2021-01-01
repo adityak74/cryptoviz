@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: BuildDockerGCPRun
+name: BuildDockerGCPRunGKE
 
 on:
   push:
@@ -22,6 +22,9 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
   DB_CONNECTON_JSON: ${{ secrets.DB_CONNECTION_SECRETS }}
+  GKE_APP_NAME: wazirx-collector-app
+  DOCKER_IMAGE_NAME: instance-ak-image
+  DOCKER_IMAGE_VERSION: latest
   ACTIONS_RUNNER_DEBUG: true
   ACTIONS_STEP_DEBUG: true
 
@@ -53,18 +56,18 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |-
-        docker build --tag "gcr.io/aakashgangaaspace/instance-ak-image:latest" .
+        docker build --tag "gcr.io/aakashgangaaspace/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}" .
 
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push "gcr.io/aakashgangaaspace/instance-ak-image:latest"
+        docker push "gcr.io/aakashgangaaspace/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}"
 
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.2.0
       with:
-        image: gcr.io/aakashgangaaspace/instance-ak-image:latest
-        service: instance-ak-image
+        image: gcr.io/aakashgangaaspace/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+        service: ${DOCKER_IMAGE_NAME}
         credentials: ${{ secrets.GCE_SA_KEY }}
     
     - name: Deploy to GKE
@@ -74,5 +77,9 @@ jobs:
         location: us-central1-a
 
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
-    - name: get-pods
-      run: kubectl get pods
+    - name: Create GKE Deployment and Display Pods
+      run: |
+        kubectl create deployment ${GKE_APP_NAME} --image=gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+        kubectl scale deployment ${GKE_APP_NAME} --replicas=3
+        kubectl autoscale deployment hello-app --cpu-percent=80 --min=1 --max=5
+        kubectl get pods
