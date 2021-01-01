@@ -59,7 +59,7 @@ jobs:
         docker push "gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}"
 
     - name: Deploy to Cloud Run
-      uses: google-github-actions/deploy-cloudrun@main
+      uses: google-github-actions/deploy-cloudrun@v0.2.0
       with:
         image: gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}
         service: instance-ak-image
