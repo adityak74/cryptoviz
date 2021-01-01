@@ -77,6 +77,7 @@ jobs:
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
     - name: Create GKE Deployment and Display Pods
       run: |
+        kubectl delete $GKE_APP_NAME
         kubectl create deployment $GKE_APP_NAME --image=gcr.io/$PROJECT_ID/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION
         kubectl scale deployment $GKE_APP_NAME --replicas=3
         kubectl autoscale deployment $GKE_APP_NAME --cpu-percent=80 --min=1 --max=5
