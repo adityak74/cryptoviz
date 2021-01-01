@@ -63,3 +63,4 @@ jobs:
       with:
         image: gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}
         service: instance-ak-image
+        service key: ${{ secrets.GCE_SA_KEY }}
