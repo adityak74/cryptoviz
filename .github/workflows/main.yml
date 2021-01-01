@@ -59,8 +59,8 @@ jobs:
         docker push "gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}"
 
     - name: Deploy to Cloud Run
-      uses: stefda/action-cloud-run@v1.0
+      uses: google-github-actions/deploy-cloudrun@v0.2.0
       with:
         image: gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}
         service: instance-ak-image
-        service key: ${{ secrets.GCE_SA_KEY }}
+        credentials: ${{ secrets.GCE_SA_KEY }}
