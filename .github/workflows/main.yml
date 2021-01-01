@@ -70,7 +70,7 @@ jobs:
     - name: Deploy to GKE
       uses: google-github-actions/get-gke-credentials@main
       with:
-        cluster_name: my-cluster
+        cluster_name:  wazirx-api-cluster
         location: us-central1-a
 
     # The KUBECONFIG env var is automatically exported and picked up by kubectl.
