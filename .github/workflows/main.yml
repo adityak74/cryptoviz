@@ -64,7 +64,7 @@ jobs:
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.2.0
       with:
-        image: gcr.io/aakashgangaaspace/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION
+        image: gcr.io/aakashgangaaspace/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
         service: instance-ak-image
         credentials: ${{ secrets.GCE_SA_KEY }}
     
@@ -78,7 +78,7 @@ jobs:
     - name: Create GKE Deployment and Display Pods
       run: |
         kubectl delete $GKE_APP_NAME
-        kubectl create deployment $GKE_APP_NAME --image=gcr.io/$PROJECT_ID/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_VERSION
+        kubectl create deployment $GKE_APP_NAME --image=gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
         kubectl scale deployment $GKE_APP_NAME --replicas=3
         kubectl autoscale deployment $GKE_APP_NAME --cpu-percent=80 --min=1 --max=5
         kubectl get pods
