@@ -60,6 +60,7 @@ app.get('/coins', async (req, res) => {
     const coinsData = await selectAllWazirXCoins();
     res.send({
       success: true,
+      coins: coinsData.length,
       coinsData,
     });
   } catch (error) {
