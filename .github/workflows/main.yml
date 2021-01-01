@@ -66,3 +66,13 @@ jobs:
         image: gcr.io/aakashgangaaspace/instance-ak-image:latest
         service: instance-ak-image
         credentials: ${{ secrets.GCE_SA_KEY }}
+    
+    - name: Deploy to GKE
+      uses: google-github-actions/get-gke-credentials@main
+      with:
+        cluster_name: my-cluster
+        location: us-central1-a
+
+    # The KUBECONFIG env var is automatically exported and picked up by kubectl.
+    - name: get-pods
+      run: kubectl get pods
