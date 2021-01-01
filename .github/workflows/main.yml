@@ -53,16 +53,16 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |-
-        docker build --tag "gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}" .
+        docker build --tag "gcr.io/aakashgangaaspace/instance-ak-image:latest" .
 
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push "gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}"
+        docker push "gcr.io/aakashgangaaspace/instance-ak-image:latest"
 
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.2.0
       with:
-        image: gcr.io/aakashgangaaspace/instance-ak-image:${GITHUB_SHA::8}
+        image: gcr.io/aakashgangaaspace/instance-ak-image:latest
         service: instance-ak-image
         credentials: ${{ secrets.GCE_SA_KEY }}
