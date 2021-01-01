@@ -2,7 +2,6 @@ const db = require('../models');
 
 const selectAllWazirXCoins = async () => {
   const allWazirxCoins = await db.cacher.model('WazirXCoins').findAll();
-  console.log('selectAllWazirXCoins-->>', selectAllWazirXCoins);
   return allWazirxCoins;
 };
 
