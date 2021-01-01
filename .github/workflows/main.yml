@@ -22,6 +22,8 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
   DB_CONNECTON_JSON: ${{ secrets.DB_CONNECTION_SECRETS }}
+  ACTIONS_RUNNER_DEBUG: true
+  ACTIONS_STEP_DEBUG: true
 
 jobs:
   setup-build-publish-deploy:
