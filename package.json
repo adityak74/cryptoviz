@@ -4,7 +4,9 @@
   "description": "wazirx-visualizer",
   "main": "app.js",
   "scripts": {
-    "clean:i": "rm -rf node_modules && npm i",
+    "clean:i": "run-script-os",
+    "clean:i:windows": "Remove-Item -Recurse -Force node_modules && npm i",
+    "clean:i:default": "rm -rf node_modules && npm i",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
@@ -35,6 +37,7 @@
   "author": "Aditya Karnam",
   "license": "ISC",
   "devDependencies": {
+    "run-script-os": "1.1.6",
     "sequelize-cli": "6.2.0"
   }
 }
