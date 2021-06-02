@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class WazirXCoins extends Sequelize.Model {
+  class Coins extends Sequelize.Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 		}
 	}
-	WazirXCoins.init(
+	Coins.init(
 		{
 			id: {
 				allowNull: false,
@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
 				defaultValue: Sequelize.UUIDV4,
 			},
       name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+	  exchange: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -42,8 +46,8 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'WazirXCoins',
+			modelName: 'Coins',
 		}
 	)
-	return WazirXCoins
+	return Coins
 };

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('WazirXCoins', {
+    await queryInterface.createTable('Coins', {
       id: {
 				allowNull: false,
 				primaryKey: true,
@@ -10,6 +10,10 @@ module.exports = {
 				defaultValue: Sequelize.UUIDV4,
 			},
       name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      exchange: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -33,6 +37,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-     await queryInterface.dropTable('WazirXCoins');
+     await queryInterface.dropTable('Coins');
   }
 };

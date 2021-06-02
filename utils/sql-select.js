@@ -1,13 +1,13 @@
 const db = require('../models');
 
-const selectAllWazirXCoins = async () => {
-  const allWazirxCoins = await db.cacher.model('WazirXCoins').findAll();
-  return allWazirxCoins;
+const selectAllCoins = async () => {
+  const allCoins = await db.cacher.model('Coins').findAll();
+  return allCoins;
 };
 
-const selectWazirXCoinsByPredicate = async (predicateObject) => {
-  const wazirxCoinByPredicate = await db.cacher.model('WazirXCoins').findOne({ where: predicateObject });
-  return wazirxCoinByPredicate;
+const selectCoinsByPredicate = async (predicateObject) => {
+  const CoinByPredicate = await db.cacher.model('Coins').findOne({ where: predicateObject });
+  return CoinByPredicate;
 };
 
 const selectCoinsDataByPredicate = async (predicateObject, orderBy = []) => {
@@ -16,7 +16,7 @@ const selectCoinsDataByPredicate = async (predicateObject, orderBy = []) => {
 };
 
 module.exports = {
-  selectAllWazirXCoins,
+  selectAllCoins,
   selectCoinsDataByPredicate,
-  selectWazirXCoinsByPredicate,
+  selectCoinsByPredicate,
 };

@@ -7,13 +7,13 @@ async.parallel([
 ], function(err, results) {
   if (err) console.log('err', err);
   const { insert } = sql;
-  const { insertWazirXCoin } = insert;
+  const { insertCoin } = insert;
   const rawCoinsData = results[0].body;
   const coins = Object.keys(rawCoinsData);
-  const wazirxCoins = [];
+  const coinsToInsert = [];
   coins.forEach(coin => {
     const coinData = rawCoinsData[coin];
-    wazirxCoins.push(coinData);
+    coinsToInsert.push({ ...coinData, exchange: 'WAZIRX' });
   });
-  wazirxCoins.map(insertWazirXCoin);
+  coinsToInsert.map(insertCoin);
 });

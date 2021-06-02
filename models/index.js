@@ -8,9 +8,10 @@ const redis = require('redis');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
+const redisConfig = require(__dirname + '/../config/config.json').redis;
 const db = {};
 
-const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+const redisClient = redis.createClient(redisConfig.port, redisConfig.host);
 
 let sequelize;
 if (config.use_env_variable) {

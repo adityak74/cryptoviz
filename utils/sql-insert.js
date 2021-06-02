@@ -1,9 +1,9 @@
 const db = require('../models');
 
-const insertWazirXCoin = async (wazixCoin) => {
-  const { name, quote_unit, base_unit } = wazixCoin;
-  const insertedWazirXCoin = await db.WazirXCoins.create({ name, unit: quote_unit, base_unit });
-  return insertedWazirXCoin.dataValues.id;
+const insertCoin = async (coin) => {
+  const { exchange, name, quote_unit, base_unit } = coin;
+  const insertedCoin = await db.Coins.create({ name, exchange, unit: quote_unit, base_unit });
+  return insertedCoin.dataValues.id;
 };
 
 const insertCoinsData = async (coinsData) => {
@@ -32,6 +32,6 @@ const insertCoinsData = async (coinsData) => {
 };
 
 module.exports = {
+  insertCoin,
   insertCoinsData,
-  insertWazirXCoin,
 };

@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'WazirXCoins', // name of Target model
+          model: 'Coins', // name of Target model
           key: 'id', // key in Target model that we're referencing
         },
       },
