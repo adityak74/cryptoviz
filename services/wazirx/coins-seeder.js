@@ -1,5 +1,5 @@
 const async = require('async');
-const { sql } = require('../utils');
+const { sql } = require('../../utils');
 const { marketTickerAsync } = require('./api-scraper');
 
 async.parallel([
