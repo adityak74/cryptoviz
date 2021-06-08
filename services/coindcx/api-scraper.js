@@ -3,7 +3,7 @@ const createAsyncRequestFactory = require('../../utils/helpers/request');
 const COINDCX_BASE_ENDPOINT = 'https://api.coindcx.com';
 
 const COINDCX_API = {
-  MARKET_DETAILS: '/exchange/v1/market_details',
+  MARKET_DETAILS: '/exchange/v1/markets_details',
   MARKET_TICKER: '/exchange/ticker',
 };
 

@@ -7,7 +7,7 @@
     "clean:i": "run-script-os",
     "clean:i:windows": "Remove-Item -Recurse -Force node_modules && npm i",
     "clean:i:default": "rm -rf node_modules && npm i",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/",
     "start": "node app.js"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "express": "4.17.1",
     "forever": "3.0.2",
     "jsonwebtoken": "8.1.0",
+    "mocha": "^9.0.0",
     "moment": "2.29.1",
     "mysql2": "2.2.5",
     "node-cron": "2.0.3",
