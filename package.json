@@ -8,7 +8,8 @@
     "clean:i:windows": "Remove-Item -Recurse -Force node_modules && npm i",
     "clean:i:default": "rm -rf node_modules && npm i",
     "test": "mocha tests/",
-    "start": "node app.js"
+    "start": "node app.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "ajv": "5.5.0",
@@ -21,14 +22,14 @@
     "express": "4.17.1",
     "forever": "3.0.2",
     "jsonwebtoken": "8.1.0",
-    "mocha": "^9.0.0",
+    "mocha": "9.0.0",
     "moment": "2.29.1",
     "mysql2": "2.2.5",
     "node-cron": "2.0.3",
     "nodemailer": "4.4.1",
     "nodemon": "1.13.3",
-    "pg": "^8.6.0",
-    "pg-hstore": "^2.3.4",
+    "pg": "8.6.0",
+    "pg-hstore": "2.3.4",
     "pm2": "2.9.1",
     "redis": "3.0.2",
     "sequelize": "6.3.5",
@@ -40,6 +41,7 @@
   "author": "Aditya Karnam",
   "license": "ISC",
   "devDependencies": {
+    "husky": "^6.0.0",
     "run-script-os": "1.1.6",
     "sequelize-cli": "6.2.0"
   }
