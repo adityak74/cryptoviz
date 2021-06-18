@@ -1,4 +1,4 @@
-const { Client } = require("pg")
+const { Client } = require("pg");
 const questDBConfig = require('../config/config.json').questDB;
 
 const start = async () => {
