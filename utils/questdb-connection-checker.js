@@ -7,6 +7,7 @@ const start = async () => {
   })
   await client.connect()
   console.log("Connected")
+  process.exit();
 }
 
 start()
