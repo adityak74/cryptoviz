@@ -5,11 +5,11 @@ const client = new net.Socket()
 
 const { host, port } = questDBInfluxConfig;
 
-function run() {
+function start() {
   client.connect(port, host, () => {
     console.log("Connected")
     process.exit()
   })
 }
 
-run()
+start()
