@@ -12,42 +12,42 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	}
 	Coins.init(
-		{
-			id: {
-				allowNull: false,
-				primaryKey: true,
-				type: Sequelize.UUID,
-				defaultValue: Sequelize.UUIDV4,
-			},
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-	  exchange: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      unit: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      base_unit: {
-        type: Sequelize.STRING,
-        allowNull: false,
-			},
-			createdAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-			},
-			updatedAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-			},
+	{
+		id: {
+			allowNull: false,
+			primaryKey: true,
+			type: Sequelize.UUID,
+			defaultValue: Sequelize.UUIDV4,
 		},
-		{
-			sequelize,
-			modelName: 'Coins',
-		}
+		name: {
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
+		exchange: {
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
+		unit: {
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
+		base_unit: {
+			type: Sequelize.STRING,
+			allowNull: false,
+				},
+				createdAt: {
+					allowNull: false,
+					type: Sequelize.DATE,
+				},
+				updatedAt: {
+					allowNull: false,
+					type: Sequelize.DATE,
+				},
+			},
+			{
+				sequelize,
+				modelName: 'Coins',
+			}
 	)
 	return Coins
 };
