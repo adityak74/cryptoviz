@@ -6,7 +6,7 @@ const start = async () => {
     ...questDBConfig,
   })
   await client.connect()
-  console.log("Connected")
+  console.log("Connected", client)
   process.exit();
 }
 
