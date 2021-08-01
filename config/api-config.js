@@ -46,9 +46,9 @@ app.post('/seedCoinsData', (req, res) => {
 
 app.get('/coins', async (req, res) => {
   const { select } = sql;
-  const { selectAllWazirXCoins } = select;
+  const { selectAllCoins } = select;
   try {
-    const coinsData = await selectAllWazirXCoins();
+    const coinsData = await selectAllCoins();
     res.send({
       success: true,
       coins: coinsData.length,
