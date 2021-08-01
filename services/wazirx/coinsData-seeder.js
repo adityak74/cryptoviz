@@ -50,7 +50,6 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
         coinID,
       });
     }
-    console.log('wazirxCoinsData', wazirxCoinsData);
     const insertAsyncTasks = wazirxCoinsData.map(coinData => asyncInsertWazirxCoinsData(coinData));
     return parallel(insertAsyncTasks, (insertErr, insertResults) => {
       if (insertErr) {
