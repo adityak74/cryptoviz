@@ -3,8 +3,6 @@ const express = require('express');
 const app = express();
 const path  = require('path');
 const bodyParser = require('body-parser');
-const twilio = require('twilio');
-const moment = require('moment');
 const coinsDataSeeder = require('../services/wazirx/coinsData-seeder');
 const { sql } = require('../utils');
 
@@ -30,7 +28,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/seedCoinsData', (req, res) => {
-  coinsDataSeeder().then((coinsDataPayload) => {
+  console.log('Seeding coins data...');
+  return coinsDataSeeder().then((coinsDataPayload) => {
     return res.send({
       seeder: 'complete',
       success: true,

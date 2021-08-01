@@ -6,8 +6,8 @@ const { parallel } = async;
 
 const asyncSelectAllWazirxCoins = cb => {
   const { select } = sql;
-  const { selectAllWazirXCoins } = select;
-  return selectAllWazirXCoins()
+  const { selectAllCoins } = select;
+  return selectAllCoins()
     .then(wazirxCoins => cb(null, wazirxCoins))
     .catch(error => cb(error));
 };
@@ -29,7 +29,7 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
       return reject(err);
     }
     const { insert } = sql;
-    const { insertWazirXCoin } = insert;
+    const { insertCoin } = insert;
     const rawCoinsData = results[0].body;
     const allWazirxCoins = results[1];
     const coins = Object.keys(rawCoinsData);
@@ -41,7 +41,7 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
       // if not found here then we will need to insert this new coin and get the ID
       // and then proceed with inserting the data
       if (!coinForID) {
-        coinID = await insertWazirXCoin(coinData);
+        coinID = await insertCoin({ ...coinData, exchange: 'wazirx' });
       } else coinID = coinForID.dataValues.id;
       wazirxCoinsData.push({
         ...coinData,

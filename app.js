@@ -1,6 +1,6 @@
 const apis = require("./config/api-config");
-const PORT = 8080;
+const PORT = 8081;
 
 apis.app.listen(process.env.PORT || PORT, function() {
-    console.log("server connected to port " + PORT);
+    console.log("server connected to port " + process.env.PORT || PORT);
 });
