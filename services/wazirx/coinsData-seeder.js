@@ -34,20 +34,23 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
     const allWazirxCoins = results[1];
     const coins = Object.keys(rawCoinsData);
     const wazirxCoinsData = [];
-    coins.forEach(async coin => {
-      const coinData = rawCoinsData[coin];
+    for (let i = 0; i < coins.length; i++) {
+      const coinData = rawCoinsData[coins[i]];
       const coinForID = allWazirxCoins.find((wazirxCoins) => wazirxCoins.dataValues.name === coinData.name);
       let coinID;
       // if not found here then we will need to insert this new coin and get the ID
       // and then proceed with inserting the data
       if (!coinForID) {
         coinID = await insertCoin({ ...coinData, exchange: 'wazirx' });
-      } else coinID = coinForID.dataValues.id;
+      } else { 
+        coinID = coinForID.dataValues.id;
+      }
       wazirxCoinsData.push({
         ...coinData,
         coinID,
       });
-    });
+    }
+    console.log('wazirxCoinsData', wazirxCoinsData);
     const insertAsyncTasks = wazirxCoinsData.map(coinData => asyncInsertWazirxCoinsData(coinData));
     return parallel(insertAsyncTasks, (insertErr, insertResults) => {
       if (insertErr) {
