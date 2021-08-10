@@ -7,18 +7,26 @@ const cacher = require('sequelize-redis-cache');
 const redis = require('redis');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const redisConfig = require(__dirname + '/../config/config.json').redis;
 const db = {};
 
-const redisClient = redis.createClient(redisConfig.port, redisConfig.host);
+const {
+  REDIS_HOST,
+  REDIS_PORT,
+  MYSQL_USER,
+  SQL_HOST,
+  SQL_PORT,
+  MYSQL_PASSWORD,
+  MYSQL_DATABASE,
+} = process.env;
+
+const redisClient = redis.createClient(REDIS_PORT, REDIS_HOST);
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+sequelize = new Sequelize(MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, {
+  host: SQL_HOST,
+  port: SQL_PORT,
+  dialect: 'mysql',
+});
 
 fs
   .readdirSync(__dirname)
