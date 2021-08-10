@@ -7,7 +7,7 @@ const { parallel } = async;
 const asyncSelectAllWazirxCoins = cb => {
   const { select } = sql;
   const { selectAllCoins } = select;
-  return selectAllCoins()
+  return selectAllCoins({ exchange: 'wazirx' })
     .then(wazirxCoins => cb(null, wazirxCoins))
     .catch(error => cb(error));
 };

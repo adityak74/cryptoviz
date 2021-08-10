@@ -1,8 +1,13 @@
 const db = require('../models');
 
-const selectAllCoins = async () => {
-  const allCoins = await db.cacher.model('Coins').findAll();
-  return allCoins;
+const selectAllCoins = async (options) => {
+  let coins;
+  if (!options) {
+    coins = await db.cacher.model('Coins').findAll();
+  } else {
+    coins = await db.cacher.model('Coins').findAll({ where: options }); 
+  }
+  return coins;
 };
 
 const selectCoinsByPredicate = async (predicateObject) => {

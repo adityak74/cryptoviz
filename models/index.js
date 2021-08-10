@@ -14,14 +14,14 @@ const {
   SQL_USER,
   SQL_HOST,
   SQL_PORT,
-  MYSQL_PASSWORD,
+  MYSQL_ROOT_PASSWORD,
   MYSQL_DATABASE,
 } = process.env;
 
 const redisClient = redis.createClient(REDIS_PORT, REDIS_HOST);
 
 let sequelize;
-sequelize = new Sequelize(MYSQL_DATABASE, SQL_USER, MYSQL_PASSWORD, {
+sequelize = new Sequelize(MYSQL_DATABASE, SQL_USER, MYSQL_ROOT_PASSWORD, {
   host: SQL_HOST,
   port: SQL_PORT,
   dialect: 'mysql',
