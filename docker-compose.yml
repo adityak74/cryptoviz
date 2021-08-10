@@ -9,6 +9,7 @@ services:
       - cryptoviz-database
       - cryptoviz-redis
   cryptoviz-database:
+    env_file: .env
     image: mysql:5.7.35
     restart: always
     ports:
