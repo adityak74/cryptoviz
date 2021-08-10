@@ -6,7 +6,6 @@ const Sequelize = require('sequelize');
 const cacher = require('sequelize-redis-cache');
 const redis = require('redis');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
 const db = {};
 
 const {
