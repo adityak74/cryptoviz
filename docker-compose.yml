@@ -1,7 +1,7 @@
 version: "3.9"  # optional since v1.27.0
 services:
   cryptoviz-app:
-    env_file: ./.env.production
+    env_file: .env.production
     build: .
     ports:
       - "3001:5000"
@@ -11,7 +11,7 @@ services:
     networks:
       - cryptoviz-network
   cryptoviz-database:
-    env_file: ./.env.production
+    env_file: .env.production
     image: mysql:5.7.35
     restart: always
     ports:
@@ -26,14 +26,14 @@ services:
     networks:
       - cryptoviz-network
   cryptoviz-redis:
-    env_file: ./.env.production
+    env_file: .env.production
     image: redis:6.2.5
     ports:
       - "6379:6379"
     networks:
       - cryptoviz-network
   cryptoviz-phpmyadmin:
-    env_file: ./.env.production
+    env_file: .env.production
     image: phpmyadmin
     restart: always
     environment:
