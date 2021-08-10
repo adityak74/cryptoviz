@@ -63,3 +63,5 @@ package-lock.json
 config/config.json
 config/database.js
 .DS_Store
+
+git.token.txt
