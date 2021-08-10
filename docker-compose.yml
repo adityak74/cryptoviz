@@ -15,23 +15,25 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=$SQL_PASSWORD
-      - MYSQL_USER=$SQL_USERNAME
-      - MYSQL_PASSWORD=$SQL_USER_PASSWORD
-      - MYSQL_DATABASE=$SQL_DATABASE
+      - MYSQL_ROOT_PASSWORD=${SQL_PASSWORD
+      - MYSQL_USER=${SQL_USERNAME}
+      - MYSQL_PASSWORD=${SQL_USER_PASSWORD}
+      - MYSQL_DATABASE=${SQL_DATABASE}
     volumes:
       - mysql-data:/var/lib/mysql
   cryptoviz-redis:
+    env_file: .env
     image: redis:6.2.5
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
   cryptoviz-phpmyadmin:
+    env_file: .env
     image: phpmyadmin
     restart: always
     environment:
       - PMA_HOST=cryptoviz-database
-      - PMA_USER=$SQL_USERNAME
-      - PMA_PASSWORD=$SQL_PASSWORD
+      - PMA_USER=${SQL_USERNAME}
+      - PMA_PASSWORD=${SQL_PASSWORD}
     ports:
       - "8081:80"
 volumes:
