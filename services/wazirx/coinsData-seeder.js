@@ -43,7 +43,6 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
     }
     const wazirxCoinsData = [];
     for (let i = 0; i < rawCoinsDataMapped.length; i++) {
-      console.log(rawCoinsDataMapped[i]);
       const coinName = rawCoinsDataMapped[i].name;
       const coinForID = storedCoinMap[coinName] || null;
       let coinID;
@@ -65,7 +64,6 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
         console.log('Error: Updating database', insertErr);
         return reject(insertErr);
       } else {
-        console.log('Info: Coins Data Inserted');
         return resolve({ coins: wazirxCoinsData });
       }
     });
