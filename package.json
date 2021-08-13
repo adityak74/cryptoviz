@@ -7,7 +7,6 @@
     "clean:i": "run-script-os",
     "clean:i:windows": "Remove-Item -Recurse -Force node_modules && npm i",
     "clean:i:default": "rm -rf node_modules && npm i",
-    "test": "mocha tests/",
     "prestart": "npx sequelize-cli db:migrate",
     "start": "node app.js",
     "prepare": "husky install"
