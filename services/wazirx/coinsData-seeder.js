@@ -20,6 +20,9 @@ const asyncInsertWazirxCoinsData = coinsData => cb => {
     .catch(error => cb(error));
 };
 
+// create a map of coin names to coin data for easy lookup
+const storedCoinMap = {};
+
 const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
     marketTickerAsync,
     asyncSelectAllWazirxCoins,
@@ -31,22 +34,28 @@ const coinsDataSeeder = () => new Promise((resolve, reject) => parallel([
     const { insert } = sql;
     const { insertCoin } = insert;
     const rawCoinsData = results[0].body;
-    const allWazirxCoins = results[1];
-    const coins = Object.keys(rawCoinsData);
+    const rawCoinsDataMapped = Object.keys(rawCoinsData).map(key => rawCoinsData[key]);
+    for (let k = 0; k < results[1].length; k++) {
+      const coin = results[1][k];
+      // if the data is returned from SQL layer it will be coin.dataValues
+      // otherwise if the redis layer cached the data it will be coin itself
+      storedCoinMap[coin.name || coin.dataValues.name] = coin.dataValues;
+    }
     const wazirxCoinsData = [];
-    for (let i = 0; i < coins.length; i++) {
-      const coinData = rawCoinsData[coins[i]];
-      const coinForID = allWazirxCoins.find((wazirxCoins) => wazirxCoins.dataValues.name === coinData.name);
+    for (let i = 0; i < rawCoinsDataMapped.length; i++) {
+      console.log(rawCoinsDataMapped[i]);
+      const coinName = rawCoinsDataMapped[i].name;
+      const coinForID = storedCoinMap[coinName] || null;
       let coinID;
       // if not found here then we will need to insert this new coin and get the ID
       // and then proceed with inserting the data
       if (!coinForID) {
-        coinID = await insertCoin({ ...coinData, exchange: 'wazirx' });
-      } else { 
-        coinID = coinForID.dataValues.id;
+        coinID = await insertCoin({ ...rawCoinsDataMapped[i], exchange: 'wazirx' });
+      } else {
+        coinID = coinForID.id;
       }
       wazirxCoinsData.push({
-        ...coinData,
+        ...rawCoinsDataMapped[i],
         coinID,
       });
     }
