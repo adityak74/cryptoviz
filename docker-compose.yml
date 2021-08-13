@@ -1,15 +1,5 @@
 version: "3.9"  # optional since v1.27.0
 services:
-  cryptoviz-app:
-    env_file: ./.env.production
-    build: .
-    ports:
-      - "3001:5000"
-    depends_on:
-      - cryptoviz-database
-      - cryptoviz-redis
-    networks:
-      - cryptoviz-network
   cryptoviz-database:
     env_file: ./.env.production
     image: mysql:5.7.35
@@ -33,6 +23,17 @@ services:
     restart: always
     ports:
       - "8081:80"
+    networks:
+      - cryptoviz-network
+  cryptoviz-app:
+    env_file: ./.env.production
+    build: .
+    ports:
+      - "3001:5000"
+    depends_on:
+      - cryptoviz-database
+      - cryptoviz-redis
+      - cryptoviz-phpmyadmin
     networks:
       - cryptoviz-network
 volumes:
