@@ -24,7 +24,7 @@
     "jsonwebtoken": "8.1.0",
     "mocha": "9.0.0",
     "moment": "2.29.1",
-    "mysql2": "2.2.5",
+    "mysql2": "2.3.0",
     "nginx": "1.0.3",
     "node-cron": "2.0.3",
     "nodemailer": "4.4.1",
