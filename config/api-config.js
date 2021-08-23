@@ -65,10 +65,13 @@ app.get('/coins', async (req, res) => {
 app.get('/coinsData', async (req, res) => {
   const { select } = sql;
   const { selectCoinsDataByPredicate } = select;
+  const page = req.query.page || 1;
   try {
-    const coinsData = await selectCoinsDataByPredicate();
+    const coinsData = await selectCoinsDataByPredicate(page);
     res.send({
       success: true,
+      rows: coinsData.length,
+      page,
       coinsData,
     });
   } catch (error) {
