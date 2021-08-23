@@ -64,9 +64,9 @@ app.get('/coins', async (req, res) => {
 
 app.get('/coinsData', async (req, res) => {
   const { select } = sql;
-  const { selectAllCoinsData } = select;
+  const { selectCoinsDataByPredicate } = select;
   try {
-    const coinsData = await selectAllCoinsData();
+    const coinsData = await selectCoinsDataByPredicate();
     res.send({
       success: true,
       coinsData,
