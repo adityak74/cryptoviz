@@ -1,3 +1,6 @@
-cryptoviz.adityakarnam.me {
+cryptoviz.adityakarnam.me:443 {
     reverse_proxy 127.0.0.1:3001
+}
+cryptoviz-admin.adityakarnam.me:443 {
+    reverse_proxy 127.0.0.1:8081
 }
