@@ -15,7 +15,7 @@ const selectCoinsByPredicate = async (predicateObject) => {
   return CoinByPredicate;
 };
 
-const selectCoinsDataByPredicate = async (predicateObject, orderBy = []) => {
+const selectCoinsDataByPredicate = async (predicateObject = {}, orderBy = []) => {
   let coinsDataByPredicate;
   let orderByOptions = orderby || [['updatedAt', 'DESC']];
   if (!predicateObject) {
