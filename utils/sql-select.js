@@ -17,9 +17,9 @@ const selectCoinsByPredicate = async (predicateObject) => {
 
 const selectCoinsDataByPredicate = async (predicateObject = {}, orderBy = []) => {
   let coinsDataByPredicate;
-  let orderByOptions = orderby || [['updatedAt', 'DESC']];
+  let orderByOptions = orderBy || [['updatedAt', 'DESC']];
   if (!predicateObject) {
-    coinsDataByPredicate = await db.cacher.model('Coins').findAll({ order: orderByOptions  }); 
+    coinsDataByPredicate = await db.cacher.model('CoinsData').findAll({ order: orderByOptions }); 
   } else {
     coinsDataByPredicate = await db.cacher.model('CoinsData').findAll({ where: predicateObject, order: orderByOptions });
   }
