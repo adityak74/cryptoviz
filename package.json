@@ -28,7 +28,7 @@
     "nginx": "1.0.3",
     "node-cron": "2.0.3",
     "nodemailer": "4.4.1",
-    "nodemon": "1.13.3",
+    "nodemon": "2.0.12",
     "pg": "8.6.0",
     "pg-hstore": "2.3.4",
     "pm2": "2.9.1",
