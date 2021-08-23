@@ -62,6 +62,24 @@ app.get('/coins', async (req, res) => {
   }
 });
 
+app.get('/coinsData', async (req, res) => {
+  const { select } = sql;
+  const { selectAllCoinsData } = select;
+  try {
+    const coinsData = await selectAllCoinsData();
+    res.send({
+      success: true,
+      coinsData,
+    });
+  } catch (error) {
+    return res.send({
+      error,
+      success: false,
+    });
+  }
+});
+
+
 module.exports = {
   app: app
 };
