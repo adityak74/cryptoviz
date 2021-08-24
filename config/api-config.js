@@ -70,9 +70,10 @@ app.get('/coinsData', async (req, res) => {
     const coinsData = await selectCoinsDataByPredicate(page);
     res.send({
       success: true,
-      rows: coinsData.length,
+      rows: coinsData.rows.length,
+      totalPages: Math.ceil(coinsData.count / coinsData.rows.length),
       page,
-      coinsData,
+      coinsData: coinsData.rows,
     });
   } catch (error) {
     return res.send({

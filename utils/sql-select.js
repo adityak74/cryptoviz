@@ -25,9 +25,22 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
     offset,
   };
   if (!predicateObject) {
-    coinsDataByPredicate = await db.cacher.model('CoinsData').findAll({ order: orderByOptions, ...options });
+    coinsDataByPredicate = await db
+      .cacher
+      .model('CoinsData')
+      .findAndCountAll({ 
+        order: orderByOptions, 
+        ...options
+      });
   } else {
-    coinsDataByPredicate = await db.cacher.model('CoinsData').findAll({ where: predicateObject, order: orderByOptions, ...options });
+    coinsDataByPredicate = await db
+      .cacher
+      .model('CoinsData')
+      .findAndCountAll({
+        where: predicateObject,
+        order: orderByOptions,
+        ...options
+      });
   }
   return coinsDataByPredicate;
 };
