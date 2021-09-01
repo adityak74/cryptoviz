@@ -28,7 +28,7 @@
     "mysql2": "2.3.0",
     "nginx": "1.0.3",
     "node-cron": "3.0.0",
-    "nodemailer": "4.4.1",
+    "nodemailer": "6.6.3",
     "nodemon": "1.13.3",
     "pg": "8.7.1",
     "pg-hstore": "2.3.4",
