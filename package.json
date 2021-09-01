@@ -43,7 +43,7 @@
   "author": "Aditya Karnam",
   "license": "ISC",
   "devDependencies": {
-    "husky": "6.0.0",
+    "husky": "7.0.2",
     "octokit": "1.5.0",
     "run-script-os": "1.1.6",
     "sequelize-cli": "6.2.0"
