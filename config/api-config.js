@@ -17,7 +17,9 @@ if (!process.env.GCP_PROJECT) {
   next();
 });
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  strict: false,
+}));
 
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));

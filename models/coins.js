@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = function (sequelize) {
   class Coins extends Sequelize.Model {
 		/**
 		 * Helper method for defining associations.
@@ -48,6 +48,6 @@ module.exports = (sequelize, DataTypes) => {
 				sequelize,
 				modelName: 'Coins',
 			}
-	)
-	return Coins
+	);
+	return Coins;
 };
