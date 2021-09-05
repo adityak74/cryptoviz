@@ -73,6 +73,7 @@ app.get('/coinsData', async (req, res) => {
     res.send({
       success: true,
       rows: coinsData.rows.length,
+      totalRows: coinsData.count,
       totalPages: Math.ceil(coinsData.count / coinsData.rows.length),
       page,
       coinsData: coinsData.rows,
