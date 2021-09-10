@@ -9,7 +9,7 @@ const octokit = new Octokit({ auth: process.env.GIT_PAT });
 
 // Compare: https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
 (async function mergeAllPullRequests() {
-  const repo = 'cryptoviz';
+  const repo = 'adityakarnam-website';
   await octokit.rest.users.getAuthenticated();
   octokit.rest.pulls.list({
     owner: "adityak74",

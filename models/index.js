@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const mysql2 = require('mysql2');
 const cacher = require('sequelize-redis-cache');
 const redis = require('redis');
 const basename = path.basename(__filename);
@@ -25,6 +26,7 @@ sequelize = new Sequelize(MYSQL_DATABASE, SQL_USER, MYSQL_ROOT_PASSWORD, {
   host: SQL_HOST,
   port: SQL_PORT,
   dialect: 'mysql',
+  dialectModule: mysql2,
 });
 
 fs
