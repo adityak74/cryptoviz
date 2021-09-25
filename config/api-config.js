@@ -4,6 +4,7 @@ const app = express();
 const path  = require('path');
 const bodyParser = require('body-parser');
 const coinsDataSeeder = require('../services/wazirx/coinsData-seeder');
+const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
 const { sql } = require('../utils');
 
 if (!process.env.GCP_PROJECT) {
@@ -74,7 +75,7 @@ app.get('/coinsData', async (req, res) => {
       success: true,
       rows: coinsData.rows.length,
       totalRows: coinsData.count,
-      totalPages: Math.ceil(coinsData.count / coinsData.rows.length),
+      totalPages: Math.ceil(coinsData.count / SQL_ROWS_PER_PAGE),
       page,
       coinsData: coinsData.rows,
     });
