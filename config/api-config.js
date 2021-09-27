@@ -66,20 +66,24 @@ app.get('/coins', async (req, res) => {
 });
 
 app.get('/coinsData', async (req, res) => {
+  const handleFailure = (statusCode, error) => {
+    const errorObj = {
+      success: false,
+    };
+    const errorFormattedObj = typeof error === 'string' ? { ...errorObj, 'error': error } : { ...errorObj, error };
+    return res.status(statusCode).send(errorFormattedObj);
+  };
+  
   const { select } = sql;
   const { selectCoinsDataByPredicate } = select;
   const page = req.query.page || 1;
+
   try {
     const coinsData = await selectCoinsDataByPredicate(page);
     const { rows } = coinsData;
     const totalPages = Math.ceil(coinsData.count / SQL_ROWS_PER_PAGE);
-    if (page > totalPages) {
-      return res.status(400).send({
-        success: false,
-        error: "invalid page number",
-      });
-    }
-    res.send({
+    if (page > totalPages) return handleFailure(400, "invalid page number");
+    return res.send({
       success: true,
       rows: rows.length,
       totalRows: coinsData.count,
@@ -88,10 +92,7 @@ app.get('/coinsData', async (req, res) => {
       coinsData: rows,
     });
   } catch (error) {
-    return res.status(500).send({
-      error,
-      success: false,
-    });
+    return handleFailure(500, error);
   }
 });
 
