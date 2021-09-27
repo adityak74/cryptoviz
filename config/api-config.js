@@ -76,8 +76,9 @@ app.get('/coinsData', async (req, res) => {
   
   const { select } = sql;
   const { selectCoinsDataByPredicate } = select;
-  const page = Number(req.query.page) || 1;
-  if (!page) return handleFailure(500, "invalid page number");
+  let pageNumber = req.query.page === undefined ? 1 : req.query.page;
+  let page = Number(pageNumber);
+  if (!page || page <= 0) return handleFailure(500, "invalid page number");
   try {
     const coinsData = await selectCoinsDataByPredicate(page);
     const { rows } = coinsData;
