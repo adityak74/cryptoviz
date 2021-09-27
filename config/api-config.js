@@ -71,16 +71,24 @@ app.get('/coinsData', async (req, res) => {
   const page = req.query.page || 1;
   try {
     const coinsData = await selectCoinsDataByPredicate(page);
+    const { rows } = coinsData;
+    const totalPages = Math.ceil(coinsData.count / SQL_ROWS_PER_PAGE);
+    if (page > totalPages) {
+      return res.status(400).send({
+        success: false,
+        error: "invalid page number",
+      });
+    }
     res.send({
       success: true,
-      rows: coinsData.rows.length,
+      rows: rows.length,
       totalRows: coinsData.count,
-      totalPages: Math.ceil(coinsData.count / SQL_ROWS_PER_PAGE),
+      totalPages,
       page,
-      coinsData: coinsData.rows,
+      coinsData: rows,
     });
   } catch (error) {
-    return res.send({
+    return res.status(500).send({
       error,
       success: false,
     });
