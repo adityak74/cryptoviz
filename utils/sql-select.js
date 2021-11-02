@@ -24,25 +24,19 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
     limit,
     offset,
   };
-  if (!predicateObject) {
-    coinsDataByPredicate = await db
-      .cacher
-      .model('CoinsData')
-      .findAndCountAll({ 
-        order: orderByOptions, 
-        ...options
-      });
-  } else {
-    coinsDataByPredicate = await db
-      .cacher
-      .model('CoinsData')
-      .findAndCountAll({
-        where: predicateObject,
-        order: orderByOptions,
-        ...options
-      });
-  }
-  return coinsDataByPredicate;
+  const queryOptions = {
+    order: orderByOptions,
+  };
+  if (predicateObject) queryOptions.where = predicateObject;
+  coinsDataByPredicateCount = await db
+    .cacher
+    .model('CoinsData')
+    .count(queryOptions);
+  coinsDataByPredicate = await db
+    .cacher
+    .model('CoinsData')
+    .findAll({ ...queryOptions, ...options });
+  return { rows: coinsDataByPredicate, count: coinsDataByPredicateCount };
 };
 
 module.exports = {
