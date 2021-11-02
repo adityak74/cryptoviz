@@ -13,7 +13,7 @@ async.parallel([
   const coinsToInsert = [];
   coins.forEach(coin => {
     const coinData = rawCoinsData[coin];
-    coinsToInsert.push({ ...coinData, exchange: 'WAZIRX' });
+    coinsToInsert.push({ ...coinData, exchange: 'wazirx' });
   });
   coinsToInsert.map(insertCoin);
 });
