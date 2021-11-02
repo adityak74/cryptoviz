@@ -1,4 +1,16 @@
 const db = require('../models');
+const { redisClient } = require('./redis');
+const { promisify } = require('util');
+
+const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
+
+const countAllCoinsDataAndCache = async () => {
+  const count = await db
+    .cacher
+    .model('CoinsData')
+    .count();
+  redisClient.set(COINSDATA_ROWS_COUNT, count);
+};
 
 const selectAllCoins = async (options) => {
   let coins;
@@ -28,10 +40,8 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
     order: orderByOptions,
   };
   if (predicateObject) queryOptions.where = predicateObject;
-  coinsDataByPredicateCount = await db
-    .cacher
-    .model('CoinsData')
-    .count(queryOptions);
+  const redisGetPromise = promisify(redisClient.get).bind(redisClient);
+  coinsDataByPredicateCount = await redisGetPromise(COINSDATA_ROWS_COUNT);
   coinsDataByPredicate = await db
     .cacher
     .model('CoinsData')
@@ -40,6 +50,7 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
 };
 
 module.exports = {
+  countAllCoinsDataAndCache,
   selectAllCoins,
   selectCoinsDataByPredicate,
   selectCoinsByPredicate,

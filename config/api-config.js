@@ -3,9 +3,24 @@ const express = require('express');
 const app = express();
 const path  = require('path');
 const bodyParser = require('body-parser');
+const { interval } = require('rxjs');
 const coinsDataSeeder = require('../services/wazirx/coinsData-seeder');
-const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
+const {
+  SQL_ROWS_PER_PAGE,
+  SQL_UPDATE_COINDSDATA_COUNT_IN_CACHE_INTERVAL
+} = require('../constants/sql');
 const { sql } = require('../utils');
+
+const source = interval(SQL_UPDATE_COINDSDATA_COUNT_IN_CACHE_INTERVAL);
+const subscription = source.subscribe(async _ => {
+  const { select } = sql;
+  const { countAllCoinsDataAndCache } = select;
+  await countAllCoinsDataAndCache();
+});
+
+process.on('exit', () => {
+  subscription.unsubscribe();
+});
 
 if (!process.env.GCP_PROJECT) {
   dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV || 'development'}`) });
