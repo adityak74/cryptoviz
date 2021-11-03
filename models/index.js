@@ -24,7 +24,7 @@ sequelize = new Sequelize(MYSQL_DATABASE, SQL_USER, MYSQL_ROOT_PASSWORD, {
   dialect: 'mysql',
   dialectModule: mysql2,
   pool: {
-    max: 100,
+    max: 50,
     min: 0,
     idle: 200000,
     acquire: 1000000,
