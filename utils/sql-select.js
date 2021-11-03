@@ -8,7 +8,7 @@ const countAllCoinsDataAndCache = async () => {
   const count = await db
     .cacher
     .model('CoinsData')
-    .count();
+    .count({});
   redisClient.set(COINSDATA_ROWS_COUNT, count);
 };
 
