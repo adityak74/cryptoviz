@@ -13,6 +13,7 @@ services:
   cryptoviz-redis:
     env_file: ./.env.production
     image: redis:6.2.5
+    restart: always
     ports:
       - "6379:6379"
     networks:
@@ -28,6 +29,7 @@ services:
   cryptoviz-app:
     env_file: ./.env.production
     build: .
+    restart: always
     ports:
       - "3001:5000"
     depends_on:
