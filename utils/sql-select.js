@@ -9,7 +9,9 @@ const countAllCoinsDataAndCache = async () => {
     .cacher
     .model('CoinsData')
     .count({});
-  redisClient.set(COINSDATA_ROWS_COUNT, count);
+  redisClient.del(COINSDATA_ROWS_COUNT, () => {
+    redisClient.set(COINSDATA_ROWS_COUNT, count);
+  });
 };
 
 const selectAllCoins = async (options) => {
