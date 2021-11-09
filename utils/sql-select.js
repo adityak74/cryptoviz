@@ -1,6 +1,7 @@
 const db = require('../models');
 const { redisClient } = require('./redis');
 const { promisify } = require('util');
+const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
 
 const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
 
@@ -32,7 +33,7 @@ const selectCoinsByPredicate = async (predicateObject) => {
 const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderBy = []) => {
   let coinsDataByPredicate;
   let orderByOptions = orderBy || [['updatedAt', 'DESC']];
-  const limit = 1000;
+  const limit = SQL_ROWS_PER_PAGE;
   const offset = (page - 1) * limit;
   const options = {
     limit,
