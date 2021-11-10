@@ -23,6 +23,12 @@ sequelize = new Sequelize(MYSQL_DATABASE, SQL_USER, MYSQL_ROOT_PASSWORD, {
   port: SQL_PORT,
   dialect: 'mysql',
   dialectModule: mysql2,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
 });
 
 fs
