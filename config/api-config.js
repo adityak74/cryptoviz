@@ -40,6 +40,11 @@ app.use(bodyParser.json({
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+  console.log('User Agent', req.headers['user-agent'], "IP: ", req.ip);
+  next();
+});
+
 // index route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'documents', 'index.html'));
