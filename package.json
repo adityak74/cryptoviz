@@ -51,7 +51,7 @@
     "@babel/preset-env": "7.15.4",
     "babel-loader": "8.2.2",
     "husky": "7.0.4",
-    "octokit": "1.5.0",
+    "octokit": "1.7.0",
     "run-script-os": "1.1.6",
     "sequelize-cli": "6.3.0",
     "webpack": "5.52.0",
