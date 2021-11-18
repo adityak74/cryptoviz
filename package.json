@@ -10,7 +10,8 @@
     "prestart": "npx sequelize-cli db:migrate",
     "start": "node app.js",
     "build": "webpack",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pulumi:linode:up": "cd cryptoviz-linode-pulumi && pulumi up"
   },
   "dependencies": {
     "@babel/polyfill": "7.12.1",
