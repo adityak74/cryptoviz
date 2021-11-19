@@ -1,7 +1,7 @@
 {
     "name": "cryptoviz-linode-pulumi",
     "devDependencies": {
-        "@types/node": "16.11.8"
+        "@types/node": "16.11.9"
     },
     "dependencies": {
         "@pulumi/pulumi": "3.18.0",
