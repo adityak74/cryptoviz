@@ -5,7 +5,7 @@ const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
 
 const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
 
-const countAllCoinsDataAndCache = async () => new Promise((resolve) => {
+const countAllCoinsDataAndCache = async () => new Promise(async (resolve) => {
   const count = await db
     .cacher
     .model('CoinsData')
@@ -47,7 +47,7 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
     .cacher
     .model('CoinsData')
     .findAll({ ...queryOptions, ...options });
-  return { rows: coinsDataByPredicate, count: coinsDataByPredicateCount };
+  return { rows: coinsDataByPredicate, count: Number(coinsDataByPredicateCount) };
 };
 
 module.exports = {
