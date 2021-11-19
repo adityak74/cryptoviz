@@ -96,7 +96,7 @@ app.get('/coinsData', async (req, res) => {
   
   const { select } = sql;
   const { selectCoinsDataByPredicate } = select;
-  let pageNumber = req.query.page === undefined ? 1 : req.query.page;
+  let pageNumber = req.query.page || 1;
   let page = Number(pageNumber);
   if (!page || page <= 0) return handleFailure(500, "invalid page number");
   try {

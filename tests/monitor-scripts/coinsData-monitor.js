@@ -15,7 +15,7 @@ const everyMinute = interval(60000);
 everyMinute.subscribe(async () => {
     try {
         const coinsDataRequest = await makeRequest();
-        console.log(coinsDataRequest.statusCode, coinsDataRequest.body.coinsData.length);
+        console.log(new Date().toUTCString(), coinsDataRequest.statusCode, coinsDataRequest.body.coinsData.length);
     } catch (error) {
         console.error("Error:", error);
     }
