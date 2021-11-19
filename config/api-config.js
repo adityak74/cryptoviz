@@ -103,7 +103,10 @@ app.get('/coinsData', async (req, res) => {
     const coinsData = await selectCoinsDataByPredicate(page);
     const { rows } = coinsData;
     const totalPages = Math.ceil(coinsData.count / SQL_ROWS_PER_PAGE);
-    if (page > totalPages) return handleFailure(400, "page number exceeded");
+    if (page > totalPages) {
+      console.log("Page: ", page, "Total Pages: ", totalPages);
+      return handleFailure(400, "page number exceeded");
+    }
     return res.send({
       success: true,
       rows: rows.length,
