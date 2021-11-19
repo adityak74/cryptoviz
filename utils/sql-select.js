@@ -5,15 +5,13 @@ const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
 
 const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
 
-const countAllCoinsDataAndCache = async () => {
+const countAllCoinsDataAndCache = async () => new Promise((resolve) => {
   const count = await db
     .cacher
     .model('CoinsData')
     .count({});
-  redisClient.del(COINSDATA_ROWS_COUNT, () => {
-    redisClient.set(COINSDATA_ROWS_COUNT, count);
-  });
-};
+  redisClient.set(COINSDATA_ROWS_COUNT, count, (err, reply) => resolve(reply));
+});
 
 const selectAllCoins = async (options) => {
   let coins;
