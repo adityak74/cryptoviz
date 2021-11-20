@@ -96,14 +96,17 @@ app.get('/coinsData', async (req, res) => {
   
   const { select } = sql;
   const { selectCoinsDataByPredicate } = select;
-  let pageNumber = req.query.page === undefined ? 1 : req.query.page;
+  let pageNumber = req.query.page || 1;
   let page = Number(pageNumber);
   if (!page || page <= 0) return handleFailure(500, "invalid page number");
   try {
     const coinsData = await selectCoinsDataByPredicate(page);
     const { rows } = coinsData;
     const totalPages = Math.ceil(coinsData.count / SQL_ROWS_PER_PAGE);
-    if (page > totalPages) return handleFailure(400, "page number exceeded");
+    if (page > totalPages) {
+      console.log("Page: ", page, "Total Pages: ", totalPages, "Coins Data: ", coinsData);
+      return handleFailure(400, "page number exceeded");
+    }
     return res.send({
       success: true,
       rows: rows.length,
