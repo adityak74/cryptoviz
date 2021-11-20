@@ -26,6 +26,8 @@ services:
       - "8081:80"
     networks:
       - cryptoviz-network
+    profiles:
+      - debug
   cryptoviz-app:
     env_file: ./.env.production
     build: .
