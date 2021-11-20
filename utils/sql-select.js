@@ -7,7 +7,7 @@ const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
 
 const countAllCoinsDataAndCache = async () => new Promise(async (resolve) => {
   const count = await db
-    .cacher
+    .sequelize
     .model('CoinsData')
     .count({});
   redisClient.set(COINSDATA_ROWS_COUNT, count, (err, reply) => resolve(reply));
