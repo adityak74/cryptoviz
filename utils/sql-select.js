@@ -13,13 +13,8 @@ const countAllCoinsDataAndCache = async () => new Promise(async (resolve) => {
   redisClient.set(COINSDATA_ROWS_COUNT, count, (err, reply) => resolve(reply));
 });
 
-const selectAllCoins = async (options) => {
-  let coins;
-  if (!options) {
-    coins = await db.cacher.model('Coins').findAll();
-  } else {
-    coins = await db.cacher.model('Coins').findAll({ where: options }); 
-  }
+const selectAllCoins = async (options = {}) => {
+  coins = await db.cacher.model('Coins').findAll({ where: options });
   return coins;
 };
 

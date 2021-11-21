@@ -86,7 +86,7 @@ app.get('/coins', async (req, res) => {
   const { select } = sql;
   const { selectAllCoins } = select;
   try {
-    const coinsData = await selectAllCoins({});
+    const coinsData = await selectAllCoins();
     res.send({
       success: true,
       coins: coinsData.length,
