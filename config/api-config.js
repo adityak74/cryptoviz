@@ -135,6 +135,28 @@ app.get('/coinsData', async (req, res) => {
   }
 });
 
+app.get('/countCoinsData', async (req, res) => {
+  const handleFailure = (statusCode, error) => {
+    const errorObj = {
+      success: false,
+    };
+    const errorFormattedObj = typeof error === 'string' ? { ...errorObj, 'error': error } : { ...errorObj, error };
+    return res.status(statusCode).send(errorFormattedObj);
+  };
+
+  const { select } = sql;
+  const { countAllCoinsData } = select;
+  try {
+    const rowsCount = countAllCoinsData();
+    return res.send({
+      success: true,
+      rows: rowsCount,
+    });
+  } catch (error) {
+    return handleFailure(500, error);
+  }
+});
+
 
 module.exports = {
   app: app

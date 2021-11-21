@@ -5,6 +5,14 @@ const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
 
 const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
 
+const countAllCoinsData = async () => {
+  const count = await db
+    .sequelize
+    .model('CoinsData')
+    .count({});
+  return count;
+};
+
 const countAllCoinsDataAndCache = async () => new Promise(async (resolve) => {
   const count = await db
     .sequelize
@@ -50,6 +58,7 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
 };
 
 module.exports = {
+  countAllCoinsData,
   countAllCoinsDataAndCache,
   selectAllCoins,
   selectCoinsDataByPredicate,
