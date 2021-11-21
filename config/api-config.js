@@ -147,10 +147,13 @@ app.get('/countCoinsData', async (req, res) => {
   const { select } = sql;
   const { countAllCoinsData } = select;
   try {
+    const startTime = new Date();
     const rowsCount = await countAllCoinsData();
+    const timeElapsed = `${(new Date() - startTime) / 1000} seconds`;
     return res.send({
       success: true,
       rows: rowsCount,
+      elapsed: timeElapsed,
     });
   } catch (error) {
     return handleFailure(500, error);
