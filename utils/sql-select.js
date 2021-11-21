@@ -46,9 +46,9 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
   if (predicateObject) queryOptions.where = predicateObject;
   const redisGetPromise = promisify(redisClient.get).bind(redisClient);
   let coinsDataByPredicateCount = null;
-  while (!coinsDataByPredicateCount) {
-    console.log("Waiting for cache to populate", coinsDataByPredicateCount);
-    coinsDataByPredicateCount = await redisGetPromise(COINSDATA_ROWS_COUNT);
+  coinsDataByPredicateCount = await redisGetPromise(COINSDATA_ROWS_COUNT);
+  if (!coinsDataByPredicate) {
+    coinsDataByPredicateCount = await countAllCoinsData();
   }
   coinsDataByPredicate = await db
     .cacher
