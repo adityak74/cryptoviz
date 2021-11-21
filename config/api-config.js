@@ -147,7 +147,7 @@ app.get('/countCoinsData', async (req, res) => {
   const { select } = sql;
   const { countAllCoinsData } = select;
   try {
-    const rowsCount = countAllCoinsData();
+    const rowsCount = await countAllCoinsData();
     return res.send({
       success: true,
       rows: rowsCount,
