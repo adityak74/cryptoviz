@@ -1,4 +1,3 @@
-const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -11,18 +10,7 @@ const {
   SQL_UPDATE_COINDSDATA_COUNT_IN_CACHE_INTERVAL
 } = require('../constants/sql');
 const { sql } = require('../utils');
-
-const whiteList = ['http://localhost:3000'];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (whiteList.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-};
+const datadogLogger = require('../utils/logger');
 
 const source = interval(SQL_UPDATE_COINDSDATA_COUNT_IN_CACHE_INTERVAL);
 const subscription = source.subscribe(async _ => {
@@ -35,11 +23,8 @@ process.on('exit', () => {
   subscription.unsubscribe();
 });
 
-if (!process.env.GCP_PROJECT) {
-  dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV || 'development'}`) });
-}
-
 app.use(cors());
+app.logger = datadogLogger;
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

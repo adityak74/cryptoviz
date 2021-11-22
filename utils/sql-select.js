@@ -2,6 +2,7 @@ const db = require('../models');
 const { redisClient } = require('./redis');
 const { promisify } = require('util');
 const { SQL_ROWS_PER_PAGE } = require('../constants/sql');
+const datadogLogger = require('../utils/logger');
 
 const COINSDATA_ROWS_COUNT = "COINSDATA_ROWS_COUNT";
 
@@ -10,6 +11,7 @@ const countAllCoinsData = async () => {
     .sequelize
     .model('CoinsData')
     .count({});
+  datadogLogger.log('CoinsData: Cache populated', count);
   return count;
 };
 
@@ -49,6 +51,7 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
   coinsDataByPredicateCount = await redisGetPromise(COINSDATA_ROWS_COUNT);
   if (!coinsDataByPredicate) {
     coinsDataByPredicateCount = await countAllCoinsData();
+    datadogLogger.log('CoinsData: Cache miss');
   }
   coinsDataByPredicate = await db
     .cacher
