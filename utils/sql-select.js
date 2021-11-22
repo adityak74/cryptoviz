@@ -15,13 +15,13 @@ const countAllCoinsData = async () => {
   return count;
 };
 
-const countAllCoinsDataAndCache = async () => new Promise(async (resolve) => {
+const countAllCoinsDataAndCache = async () => {
   const count = await db
     .sequelize
     .model('CoinsData')
     .count({});
-  redisClient.set(COINSDATA_ROWS_COUNT, count, (err, reply) => resolve(reply));
-});
+  redisClient.set(COINSDATA_ROWS_COUNT, count);
+};
 
 const selectAllCoins = async (options = {}) => {
   coins = await db.cacher.model('Coins').findAll({ where: options });
