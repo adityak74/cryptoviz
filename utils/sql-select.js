@@ -11,7 +11,7 @@ const countAllCoinsData = async () => {
     .sequelize
     .model('CoinsData')
     .count({});
-  datadogLogger.log('CoinsData: Cache populated', count);
+  datadogLogger.info(`CoinsData: Cache populated with total row count: ${count}`);
   return count;
 };
 
@@ -51,8 +51,8 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
   coinsDataByPredicateCount = await redisGetPromise(COINSDATA_ROWS_COUNT);
   if (!coinsDataByPredicate) {
     coinsDataByPredicateCount = await countAllCoinsData();
-    datadogLogger.log('CoinsData: Cache miss');
-  }
+    datadogLogger.info('CoinsData: Cache miss');
+  } else datadogLogger.info(`CoinsData: Cache hit with row count: ${coinsDataByPredicateCount}`);
   coinsDataByPredicate = await db
     .cacher
     .model('CoinsData')
