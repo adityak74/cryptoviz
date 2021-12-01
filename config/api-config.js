@@ -85,6 +85,24 @@ app.get('/coins', async (req, res) => {
   }
 });
 
+app.get('/exchanges', async (req, res) => {
+  const { select } = sql;
+  const { selectAllExchanges } = select;
+  try {
+    const exchangesData = await selectAllExchanges();
+    res.send({
+      success: true,
+      exchanges: exchangesData.length,
+      exchangesData,
+    });
+  } catch (error) {
+    return res.send({
+      error,
+      success: false,
+    });
+  }
+});
+
 app.get('/coinsData', async (req, res) => {
   const handleFailure = (statusCode, error) => {
     const errorObj = {

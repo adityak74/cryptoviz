@@ -24,8 +24,13 @@ const countAllCoinsDataAndCache = async () => {
 };
 
 const selectAllCoins = async (options = {}) => {
-  coins = await db.cacher.model('Coins').findAll({ where: options });
+  const coins = await db.cacher.model('Coins').findAll({ where: options });
   return coins;
+};
+
+const selectAllExchanges = async (options = {}) => {
+  const exchanges = await db.cacher.model('Exchanges').findAll({ where: options });
+  return exchanges;
 };
 
 const selectCoinsByPredicate = async (predicateObject) => {
@@ -65,6 +70,7 @@ module.exports = {
   countAllCoinsData,
   countAllCoinsDataAndCache,
   selectAllCoins,
+  selectAllExchanges,
   selectCoinsDataByPredicate,
   selectCoinsByPredicate,
 };
