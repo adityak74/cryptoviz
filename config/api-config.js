@@ -16,6 +16,7 @@ const source = interval(SQL_UPDATE_COINDSDATA_COUNT_IN_CACHE_INTERVAL);
 const subscription = source.subscribe(async _ => {
   const { select } = sql;
   const { countAllCoinsDataAndCache } = select;
+  datadogLogger.info(`CoinsData: Updater service populating cache`);
   await countAllCoinsDataAndCache();
 });
 

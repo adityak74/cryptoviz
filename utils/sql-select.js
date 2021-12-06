@@ -54,11 +54,10 @@ const selectCoinsDataByPredicate = async (page = 1, predicateObject = {}, orderB
   const redisGetPromise = promisify(redisClient.get).bind(redisClient);
   let coinsDataByPredicateCount = null;
   coinsDataByPredicateCount = await redisGetPromise(COINSDATA_ROWS_COUNT);
-  datadogLogger.info(`CoinsData: Cache hit with row count: ${coinsDataByPredicateCount}`);
   if (!coinsDataByPredicate) {
     coinsDataByPredicateCount = await countAllCoinsData();
-    datadogLogger.info('CoinsData: Cache miss');
-  }
+    datadogLogger.warn('CoinsData: Cache miss');
+  } else datadogLogger.info(`CoinsData: Cache hit with row count: ${coinsDataByPredicateCount}`);
   coinsDataByPredicate = await db
     .cacher
     .model('CoinsData')
