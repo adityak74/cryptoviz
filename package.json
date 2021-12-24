@@ -10,6 +10,7 @@
     "prestart": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "start": "node app.js",
     "build": "webpack",
+    "test": "",
     "prepare": "husky install",
     "pulumi:linode:up": "cd cryptoviz-linode-pulumi && pulumi up"
   },
