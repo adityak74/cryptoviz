@@ -67,3 +67,4 @@ config/database.js
 git.token.txt
 
 dist
+env-production-configmap.yaml
