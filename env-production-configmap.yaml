@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+  DATADOG_API_KEY: 4745225b0ba122b34b06d35ce7b8e88e
+  DATADOG_APP_NAME: cryptoviz
+  MYSQL_DATABASE: cryptoviz
+  MYSQL_PASSWORD: cryptoSecretPasssword1994
+  MYSQL_ROOT_PASSWORD: CxPUA4NwhHUEwF
+  NODE_ENV: production
+  PMA_HOST: cryptoviz-database
+  PMA_PASSWORD: CxPUA4NwhHUEwF
+  PMA_USER: root
+  PORT: "5000"
+  REDIS_HOST: cryptoviz-redis
+  REDIS_PORT: "6379"
+  SQL_HOST: cryptoviz-database
+  SQL_PORT: "3306"
+  SQL_USER: root
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cryptoviz-app-env-production
+  name: env-production
