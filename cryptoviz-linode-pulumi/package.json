@@ -5,6 +5,6 @@
     },
     "dependencies": {
         "@pulumi/pulumi": "3.18.0",
-        "@pulumi/linode": "3.6.0"
+        "@pulumi/linode": "3.12.0"
     }
 }
